@@ -1,0 +1,139 @@
+xcircle = 20;
+ycircle = 328;
+rcircle = 20;
+
+xo = 0;
+yo = 320;
+xo2 = 0
+yo2 = 310;
+rcircle2 = 5;
+sx = 20;
+sy = 315; 
+
+xd = 0;
+yd = 0;
+estadoDisparo = false
+
+var vidas = 3;
+var pontos = 0;
+var slow = 1
+var dificuldade = 1;
+function setup() {
+  createCanvas(400, 400)
+}
+function draw() {
+  background(220)
+  textSize(18);
+  text ("Vida: "+vidas, 10, 30);
+  text ("Pontos: "+pontos, 170, 30);
+  text ("Nível: "+dificuldade, 320, 30);
+slow = slow + 1
+  if (slow == 20){
+  pontos = pontos + 1
+  }
+  if (slow > 20){
+   slow = 1
+ }
+  if (pontos <= 50){
+    dificuldade = 1;
+  }
+  if (pontos > 50){
+    dificuldade = 2;
+  }
+  if (pontos > 200){
+    dificuldade = 3;
+  }
+  if (pontos >= 300){
+    dificuldade = 4
+  }
+  line(0, 340, 400, 340);
+  circle (xcircle, ycircle, rcircle)
+  if (keyIsDown(LEFT_ARROW)) {
+    xcircle -= 1;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    xcircle += 1;
+  }
+
+  if (keyIsDown(UP_ARROW)) {
+    ycircle -= 5;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    ycircle += 5;
+    rcircle = 15
+  }
+  else 
+      rcircle = 20
+  if (pontos >= 300){
+    circle (xo, yo, rcircle2)
+  xo = xo - 4;
+
+  if (xo < 0){
+    xo = random(1000)
+  circle (xo2, yo2, rcircle2)
+  xo2 = xo2 - 5;
+  if (xo2 < 0){
+    xo2 = random(1000)
+  }
+  }
+  }
+  if (pontos > 200){
+  circle (xo2, yo2, rcircle2)
+  xo2 = xo2 - 5;
+  if (xo2 < 0){
+    xo2 = random(1000)
+  }
+    square (sx, sy, 25)
+  sx = sx - 4
+  if (sx < 0){
+    sx = random (1000)
+  }
+  }
+  
+  if (pontos > 50){
+    square (sx, sy, 25)
+  sx = sx - 6
+  if (sx < 0){
+    sx = random (1000)
+  }
+  } 
+  
+  if (pontos <= 50){
+  square (sx, sy, 25)
+  sx = sx - 4
+  if (sx < 0){
+    sx = random (1000)
+  }
+  }
+ 
+  if ( keyIsDown (CONTROL) && estadoDisparo == false){
+    xd = xcircle;
+    yd = ycircle;
+    estadoDisparo = true
+  }  
+  if (estadoDisparo == true){
+    ellipse (xd, yd, 4, 4)
+    xd = xd + 10
+    if (xd > 400){
+      estadoDisparo = false
+    }
+} 
+  if (dist(xcircle, ycircle, xo, yo) < rcircle + rcircle2){
+    xcircle = 20;
+    ycircle = 328;
+   while (pontos>0){
+     pontos = pontos - 1; 
+   }
+  }
+  if (dist(xcircle, ycircle, xo2, yo2) < rcircle + rcircle2){
+    xcircle = 20;
+    ycircle = 328;
+    while (pontos>0){
+     pontos = pontos - 1;
+   }
+  }
+  if (dist(xcircle, ycircle, sx, sy) < rcircle){
+    xcircle = 20;
+    ycircle = 328;
+}
+}
